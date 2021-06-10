@@ -1,4 +1,4 @@
-def winner(board):
+def winner(board,miniMax=False):
     for i in range(0,len(board)):
         board[i]=int(board[i])     
     w=0
@@ -17,7 +17,7 @@ def winner(board):
             board[hole]=0
         w=1
 
-    if w==1:
+    if (w==1 and  miniMax == False):
         if board[6]>board[13]:
             winner = "wohoooo!!! player1 wins with score "+str(board[6])
             print(winner)
