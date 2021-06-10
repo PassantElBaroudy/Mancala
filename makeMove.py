@@ -2,16 +2,17 @@ def makeMove(stones, bin_index, isPlayer1,stealing):
     
     x = stones.copy()
     for i in range(0,len(x)):
-        x[i]=int(x[i])    
-    numStonesInBin= x[bin_index]
-    x[bin_index]=0
+        x[i]=int(x[i])   
+    numStonesInBin= x[bin_index]    
+    if bin_index!=-3:  
+      x[bin_index]=0
     valid = True
     playAgain=False
     stealing=stealing
     nextBinToInc=0
     
     ###if hole is empty
-    if numStonesInBin==0:
+    if numStonesInBin==0 or bin_index==-3 :
         valid=False
         return x,valid,playAgain
     else:
@@ -26,13 +27,14 @@ def makeMove(stones, bin_index, isPlayer1,stealing):
                 x[nextBinToInc]= x[nextBinToInc] + 1
             
                 #play again if the last stone is in your mancala
-                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==6):
+               
+                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==6 and sum(x[0:6])!=0):
                     playAgain=True
                 else:
                     playAgain=False
                 #stealing mode
-                if(int(stone)==int(numStonesInBin)-1 and x[nextBinToInc]==1):
-                    x[6]=x[nextBinToInc]+x[13-nextBinToInc-1]
+                if(int(stone)==int(numStonesInBin)-1 and x[nextBinToInc]==1 and nextBinToInc < 6 and x[13-nextBinToInc-1] != 0):
+                    x[6]+=x[nextBinToInc]+x[13-nextBinToInc-1]
                     x[nextBinToInc]=0
                     x[13-nextBinToInc-1] =0
 
@@ -45,7 +47,7 @@ def makeMove(stones, bin_index, isPlayer1,stealing):
                 x[nextBinToInc]= x[nextBinToInc] +1
             
                 #play again if the last stone is in your mancala
-                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==6):
+                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==6 and sum(x[0:6])!=0):
                     playAgain=True
                 else:
                     playAgain=False
@@ -62,13 +64,13 @@ def makeMove(stones, bin_index, isPlayer1,stealing):
                 x[nextBinToInc]= x[nextBinToInc] +1
 
                 #play again
-                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==13):
+                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==13 and sum(x[7:13])!=0):
                     playAgain=True
                 else:
                     playAgain=False
                #stealing mode
-                if(int(stone)==int(numStonesInBin)-1 and x[nextBinToInc]==1):
-                    x[13]=x[nextBinToInc]+x[13-nextBinToInc-1]                      
+                if(int(stone)==int(numStonesInBin)-1 and x[nextBinToInc]==1 and nextBinToInc > 6 and nextBinToInc < 13 and x[13-nextBinToInc-1] != 0 ):
+                    x[13]+=x[nextBinToInc]+x[13-nextBinToInc-1]                      
                     x[nextBinToInc]=0
                     x[13-nextBinToInc-1]=0
         
@@ -82,7 +84,7 @@ def makeMove(stones, bin_index, isPlayer1,stealing):
                     bin_index+=1           
                 x[nextBinToInc]= x[nextBinToInc] +1
                 #play again
-                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==13):
+                if(int(stone)==int(numStonesInBin)-1 and nextBinToInc==13 and sum(x[7:13])!=0):
                     playAgain=True
                 else:
                     playAgain=False              
