@@ -32,7 +32,7 @@ def Board(stonesAmount,first):
         print("------------------------------------------")
         print("                YOUR TURN         ")
         print(" ")
-        print("       f    e    d    c    b    a")
+        print("       a    b    c    d    e    f")
         print("+----+----+----+----+----+----+----+----+")
         print("|    | "+stonesAmount[12]+" | "+stonesAmount[11]+" | "+stonesAmount[10]+" | "+stonesAmount[9]+" | "+stonesAmount[8]+" | "+stonesAmount[7]+" |    |")
         print("| "+stonesAmount[13]+" +----+----+----+----+----+----+ "+stonesAmount[6]+" |")
