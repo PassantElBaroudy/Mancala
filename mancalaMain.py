@@ -35,9 +35,10 @@ p2again=0
 
 loadGame = input("please enter (Y) if you want to load the last game, or any key to continue: "+'\n')
 if loadGame == 'y' or loadGame == 'Y':
-    stonesAmount,gameMode,Stealing,gameDepth = saveLoad(stonesAmount,'0','0','0',False,True)
+    stonesAmount,gameMode,stealing,gameDepth = saveLoad(stonesAmount,'0','0','0',False,True)
+    gameDepth = int(gameDepth)
 else:
-    gameMode = input("Please enter (1) for 1vs1, (2) for 1vsPC or (3) for PCvs1: "+ '\n' )
+    gameMode = input("Please enter (1) for 1vs1 OR (2) for 1vsPC: "+ '\n' )
     gameDiff = input('\n'+"Please enter (1) for EASY mode, (2) for MEDIUM mode or (3) for HARD mode: "+'\n')
     Stealing = input('\n'+"Please enter (1) for STEALING mode or (2) for NORMAL mode: " + '\n')
     if Stealing == '1':
@@ -68,7 +69,7 @@ if gameMode == str(1):
             if u_in =='q':
                 gameOn=False
                 break
-            elif u_in == 's':
+            elif u_in == 's' or u_in == 'S':
                 saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
                 gameOn=False
                 break
@@ -90,7 +91,7 @@ if gameMode == str(1):
             if u_in =='q':
                 gameOn=False
                 break
-            elif u_in == 's':
+            elif u_in == 's' or u_in == 'S':
                 saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
                 gameOn=False
                 break  
@@ -114,15 +115,15 @@ if gameMode == str(1):
             u_in=0
             p2=1
             Board(stonesAmount,False)
-            u_in=input("player_2: enter a valid letter to PLAY, (S) to SAVE or (Q) to QUIT: "+ '\n' )
+            u_in=input("player_2: enter a valid letter to PLAY or (Q) to QUIT: "+ '\n' )
             print("")
             if u_in =='q':
                 gameOn=False
                 break
-            elif u_in == 's':
-                saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
-                gameOn=False
-                break  
+            # elif u_in == 's':
+            #     saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
+            #     gameOn=False
+            #     break  
             stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(u_in),False,stealing)
             Board(stonesAmount,False)
             if valid==True:
@@ -136,15 +137,15 @@ if gameMode == str(1):
             
         while(playagain):
             p2again=1
-            u_in=input("player_2: enter a valid letter to PLAY, (S) to SAVE or (Q) to QUIT: "+ '\n' )
+            u_in=input("player_2: enter a valid letter to PLAY or (Q) to QUIT: "+ '\n' )
             print("")
             if u_in =='q':
                 gameOn=False
                 break
-            elif u_in == 's':
-                saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
-                gameOn=False
-                break  
+            # elif u_in == 's':
+            #     saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
+            #     gameOn=False
+            #     break  
             print("")
             stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(u_in), False,stealing)
             #lw ana gwaha w galy hole invalid
@@ -178,7 +179,7 @@ elif gameMode == str(2):
                 if u_in =='q':
                     gameOn=False
                     break
-                elif u_in == 's':
+                elif u_in == 's' or u_in == 'S':
                     saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
                     gameOn=False
                     break
@@ -200,7 +201,7 @@ elif gameMode == str(2):
                 if u_in =='q':
                     gameOn=False
                     break    
-                elif u_in == 's':
+                elif u_in == 's' or u_in == 'S':
                     saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
                     gameOn=False
                     break
@@ -224,8 +225,7 @@ elif gameMode == str(2):
             while(~(valid)):
                 Board(stonesAmount,False)
                 p2=1
-                
-                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, isMaximizing=True, playAgain=False)
+                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, stealing, isMaximizing=True, playAgain=False)
                 stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(moveChar),False,stealing)
                 Board(stonesAmount,False)
                 if valid==True:
@@ -233,14 +233,14 @@ elif gameMode == str(2):
 
                 
             if p2==1:
-                endORcont=winner(stonesAmount)
+                endORcont=iswinner(stonesAmount)
                 p2=0
                 if endORcont==0:
                     break
                 
             while(playagain):
                 p2again=1
-                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, isMaximizing=True, playAgain=False)
+                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, stealing, isMaximizing=True, playAgain=False)
                 stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(moveChar),False,stealing)
                 if valid == False:
                     playagain=True
@@ -250,117 +250,10 @@ elif gameMode == str(2):
                     break
                 
             if p2again==1:
-                endORcont=winner(stonesAmount)
-                p2again=0
-                if endORcont==0:
-                    break
-                
-                
-            
-elif gameMode == str(3):
-    
-        while(gameOn):
-        ##player1
-            while(~(valid)):
-                p1=1
-                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, isMaximizing=True, playAgain=False)
-                stonesAmount, valid, playagain = makeMove(stonesAmount,playerOne(moveChar),True,stealing)
-                Board(stonesAmount,True)
-                if valid==True:
-                    break
-                
-            if p1==1:
-                endORcont=winner(stonesAmount)
-                p1=0
-                if endORcont==0:
-                    break
-                
-            while(playagain):
-                _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, isMaximizing=True, playAgain=False)
-                stonesAmount, valid, playagain = makeMove(stonesAmount,playerOne(moveChar),True,stealing)
-                #lw ana gwaha w galy hole invalid
-                if valid == False:
-                    playagain=True
-                    continue
-                Board(stonesAmount,True)         
-                if playagain==False:
-                    break
-                
-            if p1again==1:
-                endORcont=winner(stonesAmount)
-                pagain=0
-                if endORcont==0:
-                    break
-        #------------------------------------------------------------------------------
-        ##player2
-            while(~(valid)):
-                u_in=0
-                p2=1
-                print("")
-                u_in=input("player_2: enter a valid letter to PLAY, (S) to SAVE or (Q) to QUIT: "+ '\n' )
-                print("")
-                if u_in =='q':
-                    gameOn=False
-                    break
-                elif u_in == 's':
-                    saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
-                    gameOn=False
-                    break  
-                stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(u_in),False,stealing)
-                Board(stonesAmount,False,True)
-                if valid==True:
-                    break
-                
-            if p2==1:
-                endORcont=iswinner(stonesAmount)
-                p2=0
-                if endORcont==0:
-                    break
-                
-            while(playagain):
-                p2again=1
-                u_in=input("player_2: enter a valid letter to PLAY, (S) to SAVE or (Q) to QUIT: "+ '\n' )
-                print("")
-                if u_in =='q':
-                    gameOn=False
-                    break
-                elif u_in == 's':
-                    saveLoad(stonesAmount,gameMode,stealing,gameDepth,True,False)
-                    gameOn=False
-                    break
-                stonesAmount, valid, playagain = makeMove(stonesAmount,playerTwo(u_in), False,stealing)
-                #lw ana gwaha w galy hole invalid
-                if valid == False:
-                    playagain=True
-                    continue
-                Board(stonesAmount,False)        
-                if playagain==False:
-                    break
-                
-            if p2again==1:
                 endORcont=iswinner(stonesAmount)
                 p2again=0
                 if endORcont==0:
                     break
+                
         
 #------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
