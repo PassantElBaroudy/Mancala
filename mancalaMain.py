@@ -169,7 +169,7 @@ elif gameMode == str(2):
     
         while(gameOn):
         ##player1
-            while(~(valid)):
+            while(~(valid) and gameOn==True):
                         
                 Board(stonesAmount,True)
                 p1=1
@@ -222,7 +222,7 @@ elif gameMode == str(2):
                     break
                 #------------------------------------------------------------------------------
         ##player2
-            while(~(valid)):
+            while(~(valid) and gameOn==True):
                 Board(stonesAmount,False)
                 p2=1
                 _,moveChar = miniMax(stonesAmount, gameDepth, -math.inf, math.inf, stealing, isMaximizing=True, playAgain=False)
