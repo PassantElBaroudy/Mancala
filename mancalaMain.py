@@ -260,5 +260,5 @@ elif gameMode == str(2):
 
 while(True):
     k = input("Press (E) To Exit Game: " + '\n')
-    if k == 'E':
+    if k == 'E'  or k == 'e':
         break
