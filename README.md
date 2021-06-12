@@ -1,4 +1,4 @@
-# YouTube Link : https://www.youtube.com/watch?v=181ZFG6kJjA
+## YouTube Link : https://www.youtube.com/watch?v=181ZFG6kJjA
 ## GitHub Link : https://github.com/PassantElBaroudy/Mancala
 
 # Mancala 
