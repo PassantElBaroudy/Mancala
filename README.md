@@ -1,5 +1,5 @@
-YouTube Link : https://www.youtube.com/watch?v=181ZFG6kJjA
-GitHub Link : https://github.com/PassantElBaroudy/Mancala
+#YouTube Link : https://www.youtube.com/watch?v=181ZFG6kJjA
+##GitHub Link : https://github.com/PassantElBaroudy/Mancala
 
 # Mancala 
 is a two player game that is played with a board and several stones.
