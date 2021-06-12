@@ -84,7 +84,7 @@ if gameMode == str(1):
             if endORcont==0:
                 break
             
-        while(playagain):
+        while(playagain and gameOn == True):
             p1again=1
             u_in=input("player_1: enter a valid letter to PLAY, (S) to SAVE or (Q) to QUIT: "+ '\n' )
             print("")
@@ -111,7 +111,7 @@ if gameMode == str(1):
                 break
     #------------------------------------------------------------------------------
     ##player2
-        while(~(valid)):
+        while(~(valid) and gameOn == True):
             u_in=0
             p2=1
             Board(stonesAmount,False)
@@ -135,7 +135,7 @@ if gameMode == str(1):
             if endORcont==0:
                 break
             
-        while(playagain):
+        while(playagain and gameOn == True):
             p2again=1
             u_in=input("player_2: enter a valid letter to PLAY or (Q) to QUIT: "+ '\n' )
             print("")
@@ -257,3 +257,8 @@ elif gameMode == str(2):
                 
         
 #------------------------------------------------------------------------------
+
+while(True):
+    k = input("Press (E) To Exit Game: " + '\n')
+    if k == 'E':
+        break
